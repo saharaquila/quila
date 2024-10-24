@@ -1,0 +1,147 @@
+<html><head><base href="https://filipinonames.websim.io/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filipino Name Generator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital@0;1&display=swap');
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(135deg, #ffe6e6, #fff5e6);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    color: #8b4513;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .name-display {
+    font-size: 1.8rem;
+    color: #2c1810;
+    margin: 1.5rem 0;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  button {
+    background: #8b4513;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: #6b3410;
+    transform: scale(1.05);
+  }
+
+  .info {
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .meaning {
+    margin-top: 1rem;
+    color: #8b4513;
+    font-style: italic;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Filipino Name Generator</h1>
+    <div class="name-display" id="nameDisplay">Click generate to create a name</div>
+    <button onclick="generateName()">Generate Name</button>
+    <div class="meaning" id="meaning"></div>
+    <div class="info">
+      Our generator creates authentic Filipino names drawing from both indigenous and Spanish-influenced traditions.
+    </div>
+  </div>
+
+<script>
+const firstNames = {
+  male: ["Miguel", "Juan", "Antonio", "Jose", "Fernando", "Rodrigo", "Carlos", "Andres", "Marco", "Rafael",
+         "Bayani", "Dakila", "Isagani", "Kidlat", "Lakas", "Makisig", "Ningning", "Tala", "Agapito", "Crisanto"],
+  female: ["Maria", "Ana", "Isabella", "Carmen", "Sofia", "Lucia", "Elena", "Rosa", "Clara", "Victoria",
+           "Ligaya", "Mayumi", "Hiraya", "Tala", "Bituin", "Diwa", "Luwalhati", "Marikit", "Ningning", "Reyna"]
+};
+
+const lastNames = ["Santos", "Reyes", "Cruz", "Bautista", "Mendoza", "De la Cruz", "Garcia", "Flores", "Villanueva", "Ramos",
+                  "Magbangal", "Manalo", "Agbayani", "Macaraeg", "Diwata", "Bonifacio", "Mabini", "Laurel", "Macapagal", "Romero"];
+
+const meanings = {
+  "Bayani": "Hero",
+  "Dakila": "Great, noble",
+  "Ligaya": "Joy, happiness",
+  "Mayumi": "Gentle, soft-spoken",
+  "Hiraya": "Imagination",
+  "Tala": "Star",
+  "Bituin": "Star",
+  "Diwa": "Spirit",
+  "Luwalhati": "Glory",
+  "Marikit": "Beautiful",
+  "Ningning": "Brilliance",
+  "Reyna": "Queen"
+};
+
+function generateName() {
+  const gender = Math.random() < 0.5 ? 'male' : 'female';
+  const firstName = firstNames[gender][Math.floor(Math.random() * firstNames[gender].length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  const middleInitial = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  
+  const fullName = `${firstName} ${middleInitial}. ${lastName}`;
+  
+  const nameDisplay = document.getElementById('nameDisplay');
+  const meaningDisplay = document.getElementById('meaning');
+  
+  nameDisplay.classList.remove('fade-in');
+  void nameDisplay.offsetWidth; // Trigger reflow
+  nameDisplay.classList.add('fade-in');
+  
+  nameDisplay.textContent = fullName;
+  
+  // Display meaning if available
+  if (meanings[firstName]) {
+    meaningDisplay.textContent = `Meaning: ${firstName} - ${meanings[firstName]}`;
+  } else {
+    meaningDisplay.textContent = '';
+  }
+}
+</script>
+</body></html>
